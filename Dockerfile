@@ -1,14 +1,15 @@
 FROM php:5.6-apache
-
-# Installing packages
 RUN apt-get update && \
-    apt-get install -y python-pip libnet1 libnet1-dev libpcap0.8 libpcap0.8-dev git wget apache2 curl
+    apt-get install -y python-pip libnet1 libnet1-dev libpcap0.8 libpcap0.8-dev git wget
 
-# Cloning git repository
-RUN git clone https://github.com/Th3-822/rapidleech.git /root/rl
+RUN git clone https://github.com/Th3-822/rapidleech.git ./
 
-# Moving file
+ADD https://raw.githubusercontent.com/wpzzz/docker-rapidleech/master/config.php configs/ 
+
+RUN chmod 777 -R files
+RUN chmod 777 -R configs
+
 COPY ./ /var/www/html
 
-# Exposing
+
 EXPOSE  80
